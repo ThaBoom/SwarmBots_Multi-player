@@ -1,5 +1,3 @@
-//RGB LED INDICATOR
-
 //Pin numbers definition
 const int motorEnableLeft = 9;
 const int motorForwardLeft = 7;
@@ -41,10 +39,6 @@ const int stuckDistance = 10;
 IRrecv irrecv(irPin);
 decode_results results;
 boolean onoff = 0;
-//Control IR numbers
-//const long PLAY = 16761405;
-//const long PREV = 16720605;
-
 
 void stopCar_RED () {
   digitalWrite(motorForwardLeft, LOW);
@@ -194,13 +188,9 @@ void loop() {
   Serial.println(results.value);
   if (irrecv.decode(&results)) {
     irrecv.resume();
-//    if (results.value == PLAY)
-//      onoff = 1;
-//    else if (results.value == PREV)
-//      onoff = 0;
+
   }
   if (results.value == 0xFFC23D) {
-//    results.value = 0;
     if ((distanceFront <= minFrontDistance) || (distanceLeft <= minSideDistance) || (distanceRight <= minSideDistance)) {
       if ((distanceLeft < stuckDistance) || (distanceRight < stuckDistance) || (distanceFront < stuckDistance)) {
         goBack();
