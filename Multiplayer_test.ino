@@ -1,28 +1,4 @@
-//Pin numbers definition
-const int motorEnableLeft = 9;
-const int motorForwardLeft = 7;
-const int motorBackLeft = 8;
-const int motorEnableRight = 11;
-const int motorForwardRight = 12;
-const int motorBackRight = 10;
-const int trigPinFront = A1;
-const int echoPinFront = 2;
-const int trigPinLeft = 3;
-const int echoPinLeft = 4;
-const int trigPinRight = 5;
-const int echoPinRight = 6;
-const int irPin = A0;
-
-//RGB LED pins
-const int LEDred = 13;
-const int LEDgreen = A2;
-const int LEDblue = A3;
-
-//Variables for the Motors
-const int leftMotorSpeed = 255;
-const int rightMotorSpeed = 255;
-const int delayTime = 150;
-
+#include config.h
 //Variables for Ultrasonic Sensors
 long durationFront;
 int distanceFront;
@@ -30,9 +6,6 @@ long durationLeft;
 int distanceLeft;
 long durationRight;
 int distanceRight;
-const int minFrontDistance = 30;
-const int minSideDistance = 20;
-const int stuckDistance = 10;
 
 //Variables for IR Sensor
 #include <IRremote.h>
@@ -144,7 +117,7 @@ void sensorRead () {
   durationLeft = pulseIn(echoPinLeft, HIGH);
   distanceLeft = durationLeft * 0.034 / 2;
  
-  //Read right sensor value
+  //Read right {sensor value
   digitalWrite(trigPinRight, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPinRight, HIGH);
@@ -152,13 +125,14 @@ void sensorRead () {
   digitalWrite(trigPinRight, LOW);
   durationRight = pulseIn(echoPinRight, HIGH);
   distanceRight = durationRight * 0.034 / 2;
-
+if debugEnable {
   Serial.print("Left Sensor: ");
   Serial.println(distanceLeft);
   Serial.print("Right Sensor: ");
   Serial.println(distanceRight);
   Serial.print("Front Sensor: ");
   Serial.println(distanceFront);
+}
 
 }
 
@@ -180,12 +154,16 @@ void setup() {
   pinMode(LEDgreen, OUTPUT);
   pinMode(LEDblue, OUTPUT);
   irrecv.enableIRIn();
-  Serial.begin(9600);
+  if debugEnable {
+    Serial.begin(9600);
+  }
 }
 
 void loop() {
   sensorRead();
+  if debugEnable {
   Serial.println(results.value);
+  }
   if (irrecv.decode(&results)) {
     irrecv.resume();
 
