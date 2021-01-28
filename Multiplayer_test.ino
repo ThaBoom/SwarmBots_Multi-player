@@ -125,14 +125,14 @@ void sensorRead () {
   digitalWrite(trigPinRight, LOW);
   durationRight = pulseIn(echoPinRight, HIGH);
   distanceRight = durationRight * 0.034 / 2;
-if debugEnable {
-  Serial.print("Left Sensor: ");
-  Serial.println(distanceLeft);
-  Serial.print("Right Sensor: ");
-  Serial.println(distanceRight);
-  Serial.print("Front Sensor: ");
-  Serial.println(distanceFront);
-}
+  if debugEnable {
+    Serial.print("Left Sensor: ");
+    Serial.println(distanceLeft);
+    Serial.print("Right Sensor: ");
+    Serial.println(distanceRight);
+    Serial.print("Front Sensor: ");
+    Serial.println(distanceFront);
+  }
 
 }
 
@@ -162,7 +162,7 @@ void setup() {
 void loop() {
   sensorRead();
   if debugEnable {
-  Serial.println(results.value);
+    Serial.println(results.value);
   }
   if (irrecv.decode(&results)) {
     irrecv.resume();
@@ -198,8 +198,8 @@ void loop() {
   else if (results.value == 0xFF629D) {//CH 0xFF629D
 
     stopCar_BLUE();
-}
+  }
   else if (results.value == 0xFFE21D) {//CH+ 0xFFE21D
     stopCar_GREEN();
-}
+  }
 }

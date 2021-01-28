@@ -29,5 +29,4 @@ const int minSideDistance = 20;
 const int stuckDistance = 10;
 
 //Debug 
-const int debugEnabled = 1;
-
+const int debugEnable = 1;
